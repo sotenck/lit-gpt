@@ -102,7 +102,7 @@ def main(
     strategy: str = "auto",
     devices: int = 1,
     precision: str = "bf16-true",
-) -> None:
+) -> str | int:
     """Generates text samples based on a pre-trained model and tokenizer.
 
     Args:
@@ -163,7 +163,7 @@ def main(
         max_returned_tokens,
         model.config.block_size,
     )  # maximum rope cache length
-
+    all_strings = []
     L.seed_everything(1234)
     for i in range(num_samples):
         t0 = time.perf_counter()
@@ -178,13 +178,17 @@ def main(
         t = time.perf_counter() - t0
 
         model.reset_cache()
-        fabric.print(tokenizer.decode(y))
+        decoded_y = tokenizer.decode(y)
+        all_strings.append(decoded_y)
+        fabric.print(decoded_y)
         tokens_generated = y.size(0) - prompt_length
         fabric.print(
             f"Time for inference {i + 1}: {t:.02f} sec total, {tokens_generated / t:.02f} tokens/sec", file=sys.stderr
         )
     if fabric.device.type == "cuda":
         fabric.print(f"Memory used: {torch.cuda.max_memory_allocated() / 1e9:.02f} GB", file=sys.stderr)
+
+    return ''.join(all_strings), tokens_generated
 
 
 if __name__ == "__main__":

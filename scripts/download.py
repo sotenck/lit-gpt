@@ -7,14 +7,14 @@ wd = Path(__file__).parent.parent.resolve()
 sys.path.append(str(wd))
 
 
-def download_from_hub(repo_id: Optional[str] = None) -> None:
+def download_from_hub(repo_id: Optional[str] = None) -> None | list[str]:
     if repo_id is None:
-        from lit_gpt.config import configs
+        from ..lit_gpt.config import configs
 
         options = [f"{config['org']}/{config['name']}" for config in configs]
         print("Please specify --repo_id <repo_id>. Available values:")
         print("\n".join(options))
-        return
+        return options
 
     from huggingface_hub import snapshot_download
 

@@ -190,7 +190,7 @@ class lazy_load:
         self.zf = None
 
 
-def check_valid_checkpoint_dir(checkpoint_dir: Path) -> None:
+def check_valid_checkpoint_dir(checkpoint_dir: Path) -> bool:
     files = {
         "lit_model.pth": (checkpoint_dir / "lit_model.pth").is_file(),
         "lit_config.json": (checkpoint_dir / "lit_config.json").is_file(),
@@ -202,7 +202,7 @@ def check_valid_checkpoint_dir(checkpoint_dir: Path) -> None:
     if checkpoint_dir.is_dir():
         if all(files.values()):
             # we're good
-            return
+            return True
         problem = f" is missing the files: {[f for f, exists in files.items() if not exists]!r}"
     else:
         problem = " is not a checkpoint directory"
@@ -215,13 +215,7 @@ def check_valid_checkpoint_dir(checkpoint_dir: Path) -> None:
     else:
         extra = ""
 
-    error_message = (
-        f"--checkpoint_dir {str(checkpoint_dir.absolute())!r}{problem}."
-        "\nFind download instructions at https://github.com/Lightning-AI/lit-gpt/blob/main/tutorials\n"
-        f"{extra}\nSee all download options by running:\n python scripts/download.py"
-    )
-    print(error_message, file=sys.stderr)
-    raise SystemExit(1)
+    return False
 
 
 class SavingProxyForStorage:
