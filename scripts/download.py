@@ -7,7 +7,7 @@ wd = Path(__file__).parent.parent.resolve()
 sys.path.append(str(wd))
 
 
-def download_from_hub(repo_id: Optional[str] = None) -> None | list[str]:
+def download_from_hub(repo_id: Optional[str] = None) -> list[str]:
     if repo_id is None:
         from ..lit_gpt.config import configs
 
@@ -25,6 +25,8 @@ def download_from_hub(repo_id: Optional[str] = None) -> None | list[str]:
         resume_download=True,
         allow_patterns=["*.bin*", "tokenizer*"],
     )
+
+    return []
 
 
 if __name__ == "__main__":
