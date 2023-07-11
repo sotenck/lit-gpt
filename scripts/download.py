@@ -1,13 +1,14 @@
 import sys
 from pathlib import Path
 from typing import Optional
+from typing import List
 
 # support running without installing as a package
 wd = Path(__file__).parent.parent.resolve()
 sys.path.append(str(wd))
 
 
-def download_from_hub(repo_id: Optional[str] = None) -> list[str]:
+def download_from_hub(repo_id: Optional[str] = None) -> List[str]:
     if repo_id is None:
         from ..lit_gpt.config import configs
 
