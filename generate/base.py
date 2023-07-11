@@ -102,7 +102,7 @@ def main(
     strategy: str = "auto",
     devices: int = 1,
     precision: str = "bf16-true",
-) -> str | int:
+) -> str():
     """Generates text samples based on a pre-trained model and tokenizer.
 
     Args:
@@ -164,6 +164,7 @@ def main(
         model.config.block_size,
     )  # maximum rope cache length
     all_strings = []
+    tokens_generated = 0
     L.seed_everything(1234)
     for i in range(num_samples):
         t0 = time.perf_counter()
@@ -188,7 +189,7 @@ def main(
     if fabric.device.type == "cuda":
         fabric.print(f"Memory used: {torch.cuda.max_memory_allocated() / 1e9:.02f} GB", file=sys.stderr)
 
-    return ''.join(all_strings), tokens_generated
+    return (''.join(all_strings), str(tokens_generated))
 
 
 if __name__ == "__main__":
