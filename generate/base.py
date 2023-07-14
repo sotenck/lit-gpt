@@ -128,6 +128,8 @@ def main(
 
     check_valid_checkpoint_dir(checkpoint_dir)
 
+    torch.cuda.empty_cache()
+
     with open(checkpoint_dir / "lit_config.json") as fp:
         config = Config(**json.load(fp))
 
