@@ -298,7 +298,7 @@ def save_adapter_v2_checkpoint(fabric, model, file_path: Path):
 if __name__ == "__main__":
     # Uncomment this line if you see an error: "Expected is_sm80 to be true, but got false"
     # torch.backends.cuda.enable_flash_sdp(False)
-    torch.set_float32_matmul_precision("medium")
+    torch.set_float32_matmul_precision("high")
 
     from jsonargparse.cli import CLI
 
