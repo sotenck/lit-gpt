@@ -102,7 +102,7 @@ def main(
     strategy: str = "auto",
     devices: int = 1,
     precision: str = "bf16-true",
-) -> str():
+) -> str:
     """Generates text samples based on a pre-trained model and tokenizer.
 
     Args:
@@ -191,7 +191,7 @@ def main(
     if fabric.device.type == "cuda":
         fabric.print(f"Memory used: {torch.cuda.max_memory_allocated() / 1e9:.02f} GB", file=sys.stderr)
 
-    return (''.join(all_strings), str(tokens_generated))
+    return ''.join(all_strings)
 
 
 if __name__ == "__main__":
