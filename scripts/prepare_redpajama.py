@@ -83,6 +83,8 @@ def prepare_sample(
 
         builder.write_reminder()
 
+    print(f"done processing {name}")
+
 
 def prepare_full(
     source_path: Path, checkpoint_dir: Path, destination_path: Path, chunk_size: int, match: str = ""
@@ -138,6 +140,8 @@ def prepare_full(
                         builder.add_array(np.array(text_ids, dtype=builder.dtype))
 
         builder.write_reminder()
+
+    print(f"done processing {name}")
 
 
 def prepare(
