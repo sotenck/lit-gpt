@@ -24,7 +24,7 @@ eval_interval = 100
 save_interval = 100
 eval_iters = 100
 log_interval = 1
-devices = 1
+devices = 2
 # change this value to force a maximum sequence length
 override_max_seq_length = None
 
