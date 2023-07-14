@@ -268,7 +268,7 @@ def prompt_config(checkpoint_dir: Path, tokenizer: Tokenizer) -> Tuple[str, Tupl
 if __name__ == "__main__":
     from jsonargparse import CLI
 
-    torch.set_float32_matmul_precision("high")
+    torch.set_float32_matmul_precision("medium")
     warnings.filterwarnings(
         # Triggered internally at ../aten/src/ATen/EmptyTensor.cpp:31
         "ignore",
